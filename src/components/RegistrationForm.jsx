@@ -48,7 +48,6 @@ export default function RegistrationForm() {
     e.preventDefault();
     console.log("Submitted:", formData);
 
-    // Reset form
     setFormData({
       name: "",
       email: "",
@@ -65,7 +64,7 @@ export default function RegistrationForm() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="px-4 pt-6 sm:px-0"
     >
-      <div className="max-w-md mx-auto bg-white p-6 sm:p-8 rounded-xl shadow-md">
+      <div className="max-w-md mx-auto bg-white p-6 sm:p-8 rounded-xl shadow-md text-lg">
         <form onSubmit={handleSubmit}>
 
           {/* Name */}
@@ -114,14 +113,14 @@ export default function RegistrationForm() {
 
           {/* Competitions */}
           <div className="mb-8">
-            <label className="block font-bold font-medium text-gray-700 mb-4 text-base">
+            <label className="block font-medium text-gray-700 mb-4 text-base sm:text-lg">
               प्रतियोगिताएँ चुनें
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {competitionsList.map((comp, index) => (
                 <label
                   key={index}
-                  className="flex items-start space-x-2 text-sm text-gray-800 leading-snug"
+                  className="flex items-start space-x-2 text-gray-800 text-base"
                 >
                   <input
                     type="checkbox"
@@ -139,7 +138,7 @@ export default function RegistrationForm() {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition"
+            className="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition text-base"
           >
             सबमिट करें
           </button>
