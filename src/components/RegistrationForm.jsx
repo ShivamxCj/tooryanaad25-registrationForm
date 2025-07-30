@@ -44,18 +44,36 @@ export default function RegistrationForm() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submitted:", formData);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      college: "",
-      competitions: [],
+  const endpoint = "https://script.google.com/macros/s/AKfycby86bJ5APZkR6YY-Nta1ReOybatuXlR6CWslZDJAMvaGyrKCc8y0M-jVET-6AT7ny_evA/exec"; 
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-  };
+
+    if (response.ok) {
+      alert("पंजीकरण सफल रहा!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        college: "",
+        competitions: [],
+      });
+    } else {
+      alert("कुछ गलत हो गया। कृपया पुनः प्रयास करें।");
+    }
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    alert("सर्वर से कनेक्ट नहीं हो पाया।");
+  }
+};
 
   return (
     <motion.div
@@ -113,7 +131,7 @@ export default function RegistrationForm() {
 
           {/* Competitions */}
           <div className="mb-8">
-            <label className="block font-medium text-gray-700 mb-4 text-base sm:text-lg">
+            <label className="block font-bold text-gray-700 mb-4 text-base sm:text-lg">
               प्रतियोगिताएँ चुनें
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
