@@ -7,9 +7,9 @@ export default function App() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center text-2xl sm:text-3xl md:text-4xl font-bold underline text-gray-800"
+        className="text-center text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800"
       >
-        Tooryanaad 25 Registration
+        तूर्यनाद 25 Registration
       </motion.h1>
     </div>
   );

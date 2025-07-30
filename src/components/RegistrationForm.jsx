@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import FloatingInput from "./FloatingInput";
 
 export default function RegistrationForm() {
@@ -46,6 +47,8 @@ export default function RegistrationForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted:", formData);
+
+    // Reset form
     setFormData({
       name: "",
       email: "",
@@ -56,69 +59,76 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className="px-4 pt-6 sm:px-0">
-      <div className="max-w-md mx-auto bg-white p-6 rounded-xl shadow-md">
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="px-4 pt-6 sm:px-0"
+    >
+      <div className="max-w-md mx-auto bg-white p-6 sm:p-8 rounded-xl shadow-md">
         <form onSubmit={handleSubmit}>
+
           {/* Name */}
-          <div className="mb-4">
+          <div className="mb-5">
             <FloatingInput
               label="नाम"
               type="text"
               name="name"
-              required
               value={formData.name}
               onChange={handleChange}
             />
           </div>
 
           {/* Email */}
-          <div className="mb-4">
+          <div className="mb-5">
             <FloatingInput
               label="ईमेल"
               type="email"
               name="email"
-              required
               value={formData.email}
               onChange={handleChange}
             />
           </div>
 
           {/* Phone */}
-          <div className="mb-4">
+          <div className="mb-5">
             <FloatingInput
               label="फ़ोन नंबर"
               type="tel"
               name="phone"
-              required
               value={formData.phone}
               onChange={handleChange}
             />
           </div>
 
           {/* College */}
-          <div className="mb-4">
+          <div className="mb-6">
             <FloatingInput
               label="कॉलेज / विश्वविद्यालय"
               type="text"
               name="college"
-              required
               value={formData.college}
               onChange={handleChange}
             />
           </div>
 
           {/* Competitions */}
-          <div className="mb-6">
-            <label className="block font-medium text-gray-700 mb-2">प्रतियोगिताएँ चुनें</label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div className="mb-8">
+            <label className="block font-bold font-medium text-gray-700 mb-4 text-base">
+              प्रतियोगिताएँ चुनें
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {competitionsList.map((comp, index) => (
-                <label key={index} className="flex items-center space-x-2 text-sm">
+                <label
+                  key={index}
+                  className="flex items-start space-x-2 text-sm text-gray-800 leading-snug"
+                >
                   <input
                     type="checkbox"
                     value={comp}
                     checked={formData.competitions.includes(comp)}
                     onChange={handleCompetitionChange}
-                    className="text-blue-600"
+                    className="mt-1 accent-blue-600"
                   />
                   <span>{comp}</span>
                 </label>
@@ -135,6 +145,6 @@ export default function RegistrationForm() {
           </button>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 }
