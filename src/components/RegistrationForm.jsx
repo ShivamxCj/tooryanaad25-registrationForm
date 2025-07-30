@@ -73,7 +73,7 @@ export default function RegistrationForm() {
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-white max-w-xl w-full rounded-xl shadow-lg p-6 sm:p-10"
+        className="bg-white max-w-xl w-full rounded-xl shadow-lg p-6 sm:p-10 mb-10"
       >
         <form onSubmit={handleSubmit} className="text-lg">
           {/* Name */}
