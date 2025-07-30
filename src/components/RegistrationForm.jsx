@@ -44,47 +44,38 @@ export default function RegistrationForm() {
     });
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const endpoint = "https://script.google.com/macros/s/AKfycby86bJ5APZkR6YY-Nta1ReOybatuXlR6CWslZDJAMvaGyrKCc8y0M-jVET-6AT7ny_evA/exec"; 
-  try {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (response.ok) {
-      alert("पंजीकरण सफल रहा!");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        college: "",
-        competitions: [],
-      });
-    } else {
-      alert("कुछ गलत हो गया। कृपया पुनः प्रयास करें।");
-    }
-  } catch (error) {
-    console.error("Error submitting form:", error);
-    alert("सर्वर से कनेक्ट नहीं हो पाया।");
-  }
-};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    alert("Form submitted (frontend only)");
+  };
 
   return (
+    <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row items-center justify-center px-4 gap-24">
+      
+      {/* LEFT: Image (no bg, no card) */}
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="px-4 pt-6 sm:px-0"
-    >
-      <div className="max-w-md mx-auto bg-white p-6 sm:p-8 rounded-xl shadow-md text-lg">
-        <form onSubmit={handleSubmit}>
-
+  className="hidden md:block"
+  animate={{ rotate: [0, 90, -90,0] }}
+  transition={{
+    duration: 16, // total cycle duration
+    ease: "easeInOut",
+    repeat: Infinity,
+  }}
+>
+  <img
+    src="/imgLogoXL.png"
+    alt="Vector Illustration"
+    className="w-[400px] h-auto object-contain"
+  />
+</motion.div>
+      {/* RIGHT: Form (inside card) */}
+      <motion.div
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white max-w-xl w-full rounded-xl shadow-lg p-6 sm:p-10"
+      >
+        <form onSubmit={handleSubmit} className="text-lg">
           {/* Name */}
           <div className="mb-5">
             <FloatingInput
@@ -161,7 +152,7 @@ export default function RegistrationForm() {
             सबमिट करें
           </button>
         </form>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
