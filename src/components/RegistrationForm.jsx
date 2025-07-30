@@ -1,0 +1,140 @@
+import { useState } from "react";
+import FloatingInput from "./FloatingInput";
+
+export default function RegistrationForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    college: "",
+    competitions: [],
+  });
+
+  const competitionsList = [
+    "नुक्कड़ नाटक",
+    "परिधानिका",
+    "खिचड़ी",
+    "चक्रव्यूह",
+    "कवि सम्मेलन",
+    "छात्र संसद",
+    "छायाचिर्तन",
+    "सृजन",
+    "अभिव्यक्ति नृत्य",
+    "अभिव्यक्ति मंच",
+    "अभिव्यक्ति गायन",
+    "लेखन",
+  ];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleCompetitionChange = (e) => {
+    const { value, checked } = e.target;
+    setFormData((prev) => {
+      const updated = checked
+        ? [...prev.competitions, value]
+        : prev.competitions.filter((item) => item !== value);
+      return { ...prev, competitions: updated };
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Submitted:", formData);
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      college: "",
+      competitions: [],
+    });
+  };
+
+  return (
+    <div className="px-4 pt-6 sm:px-0">
+      <div className="max-w-md mx-auto bg-white p-6 rounded-xl shadow-md">
+        <form onSubmit={handleSubmit}>
+          {/* Name */}
+          <div className="mb-4">
+            <FloatingInput
+              label="नाम"
+              type="text"
+              name="name"
+              required
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Email */}
+          <div className="mb-4">
+            <FloatingInput
+              label="ईमेल"
+              type="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Phone */}
+          <div className="mb-4">
+            <FloatingInput
+              label="फ़ोन नंबर"
+              type="tel"
+              name="phone"
+              required
+              value={formData.phone}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* College */}
+          <div className="mb-4">
+            <FloatingInput
+              label="कॉलेज / विश्वविद्यालय"
+              type="text"
+              name="college"
+              required
+              value={formData.college}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Competitions */}
+          <div className="mb-6">
+            <label className="block font-medium text-gray-700 mb-2">प्रतियोगिताएँ चुनें</label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {competitionsList.map((comp, index) => (
+                <label key={index} className="flex items-center space-x-2 text-sm">
+                  <input
+                    type="checkbox"
+                    value={comp}
+                    checked={formData.competitions.includes(comp)}
+                    onChange={handleCompetitionChange}
+                    className="text-blue-600"
+                  />
+                  <span>{comp}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition"
+          >
+            सबमिट करें
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
